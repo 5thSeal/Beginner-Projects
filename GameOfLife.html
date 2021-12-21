@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<HTML>
+<HEAD>
+<TITLE>Conway's Game of Life</TITLE>
+<META charset="UTF-8" />
+<META name="author" content="Prof. Sabal" />
+<META name="viewport" content="width=device-width, initial-scale=1.0" />
+<META name="description" content="This program will show Conwey's Game of life. Each cell will live or die
+								  based upon a set of rules and the outcome will be projected. The game is over
+								  when every cell dies." />
+<SCRIPT type="text/javascript">
+var randomRow = "";
+var randomColumn = "";
+var cell = "";
+var numNeighbors = "";
+const ARRAYSIZE = 14;
+var myArray = [
+[1, 2, 3],
+[4, 5, 6],
+[7, 8, 9],
+[10, 11, 12]
+[13, 14, 15, 16]
+];
+// Parameter size: how many rows and columns will exist in the array
+
+// Create the Array
+function createArray(size) {
+    myArray = [];
+	for (let rowCounter=0;rowCounter<size;rowCounter++) {
+		let row = [];
+		for (let columnCounter=0;columnCounter<size;columnCounter++) {
+			rowCounter == 0
+			columnCounter == 1
+            row.push(0)
+		} // for()
+		myArray.push(row);
+	} // for()
+} // createArray(size)
+
+// Display the array on the screen
+function displayArray() {
+    var outputString = "<TABLE border=\"1\">";
+	for (let rowCounter=0;rowCounter<myArray.length;rowCounter++) {
+		outputString += "<TR>";
+		for (let columnCounter=0;columnCounter<myArray[rowCounter].length;columnCounter++) {
+	    	 let bgStyle = "style=\"color:white; background:";
+			 if (myArray [rowCounter][columnCounter]== 0) bgStyle += "black;\"";
+			 else bgStyle += "white;\"";
+
+			// if ((rowCounter+[columnCounter])%2==0) bgStyle += "red;\"";
+			// else bgStyle += "black;\"";
+			outputString +="<TD width=\"20\" height=\"20\" "+bgStyle+">"+myArray[rowCounter] [columnCounter] +"</TD>";
+	     }
+		outputString += "</TR>";
+		}
+		outputString += "</TABLE>";
+		document.getElementById("output").innerHTML = outputString;
+} // displayArray()
+
+// The timer to start each round
+function onTimer() {
+	for (let i = -1; i < 2; i++) {
+		for (let j = -1; j < 2; j++);
+		    if (j == 0 && i == 0){
+				continue;
+			}
+			const currentNeighbor = myArray [randomColumn + i] [randomRow + j];
+			numNeighbors += currentNeighbor;
+		} // for()
+	//Rules
+	// fewer than 2 neighbors dies
+	if (cell == 1 && numNeighbors < 2) {
+		myArray [randomColumn] [randomRow] = 0;
+	}
+	// more than 3 neighbors dies
+	else if (cell == 0 && numneighbors > 3) {
+	    myArray [randomColumn] [randomRow] = 0;
+    }
+	// exactly 3 neighbors becomes alive
+	else if (cell == 0 && numNeighbors == 3) {
+		myArray [randomColumn] [randomRow] = 1;
+	}
+
+ // I used this function as a template from "The Game of Life In JavaScript and Canvas"
+ // by Hungry Turtle Code on YouTube
+	myArray[randomRow] [randomColumn] = cell;
+    displayArray();
+}
+
+
+/*
+ function nextGen(size)
+	for (let rowCounter=0;rowCounter<size;rowCounter++) {
+	    for (let columnCounter=0;columnCounter<size;columnCounter++) {
+
+
+*/
+function main() {
+	createArray(ARRAYSIZE);
+	displayArray();
+	setInterval(onTimer, 50);
+
+} // main()
+</SCRIPT>
+</HEAD>
+<BODY onLoad="main();">
+<DIV id="topbar">
+
+</DIV>
+<!--TABLE>
+<TR><TH>Column 1</TH><TH>Column 2</TH><TH>Column 3</TH></TR>
+<TR><TD>a</TD><TD>b</TD><TD>c</TD></TR>
+<TR><TD>d</TD><TD>e</TD><TD>f</TD></TR>
+<TR><TD>g</TD><TD>h</TD><TD>i</TD></TR>
+	</TABLE> -->
+<DIV id="output">
+
+</DIV>
+</BODY>
+</HTML>
